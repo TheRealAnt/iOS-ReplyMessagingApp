@@ -21,14 +21,6 @@ class ProfileController: UIViewController {
     private let bannerHeight = CGFloat(180)
     private let bioText = "Some bio text"
     
-//    let displayNameLabel: UILabel = {
-//        let label = UILabel()
-//        label.textColor = .black
-//        label.font = UIFont.systemFont(ofSize: 22)
-//        label.text = "TheRealAnt"
-//        return label
-//    }()
-    
     let bannerImageSetting: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "baseline_settings_white_24dp")
