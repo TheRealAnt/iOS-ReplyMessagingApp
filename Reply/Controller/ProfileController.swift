@@ -8,18 +8,21 @@
 
 import UIKit
 
-class ProfileController: UIViewController {
+class ProfileController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
     
     let avatarImageView = AvatarImageView()
     let bannerImageView = BannerImageView()
     let replyLabels = ReplyLabels()
+    let replyButtons = ReplyButtons()
     
     private let avatarWidthHeight = CGFloat(160)
     private let avatarBorderWidth = CGFloat(4)
     private let bannerHeight = CGFloat(180)
     private let bioText = "Some bio text"
+    private let phoneNumberText = "000 000 0000"
+    private let emailAddressText = "email@email.com"
     
     let bannerImageSetting: UIImageView = {
         let iv = UIImageView()
@@ -46,8 +49,11 @@ class ProfileController: UIViewController {
         setupAvatarImageView()
         setupDisplayNameLabel()
         setupBioLabel()
-        //setupBannerSettingImage()
-        //setupAvatarSettingImage()
+        setupPhoneNumberLabel()
+        setupEmailAddressLabel()
+        
+        setupImagePickerButton()
+        
     }
     
     func configureUI() {
@@ -102,6 +108,24 @@ class ProfileController: UIViewController {
         replyLabels.bio.topAnchor.constraint(equalTo: replyLabels.displayName.bottomAnchor, constant: 20).isActive = true
     }
     
+    func setupPhoneNumberLabel(){
+        view.addSubview(replyLabels.phoneNumber)
+        
+        replyLabels.phoneNumber.text = phoneNumberText
+        replyLabels.phoneNumber.translatesAutoresizingMaskIntoConstraints = false
+        replyLabels.phoneNumber.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        replyLabels.phoneNumber.topAnchor.constraint(equalTo: replyLabels.bio.bottomAnchor, constant: 20).isActive = true
+    }
+    
+    func setupEmailAddressLabel(){
+        view.addSubview(replyLabels.emailAddress)
+        
+        replyLabels.emailAddress.text = emailAddressText
+        replyLabels.emailAddress.translatesAutoresizingMaskIntoConstraints = false
+        replyLabels.emailAddress.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        replyLabels.emailAddress.topAnchor.constraint(equalTo: replyLabels.phoneNumber.bottomAnchor, constant: 20).isActive = true
+    }
+    
     func setupBannerSettingImage(){
         view.addSubview(bannerImageSetting)
         bannerImageSetting.translatesAutoresizingMaskIntoConstraints = false
@@ -116,6 +140,44 @@ class ProfileController: UIViewController {
         avatarImageSetting.topAnchor.constraint(equalTo: avatarImageView.avatar.topAnchor, constant: 10).isActive = true
         avatarImageSetting.heightAnchor.constraint(equalToConstant: 20).isActive = true
         avatarImageSetting.trailingAnchor.constraint(equalTo: avatarImageView.avatar.trailingAnchor, constant: -10).isActive = true
+    }
+    
+    func setupImagePickerButton()
+    {
+        view.addSubview(replyButtons.photoLibrary)
+        view.addSubview(replyButtons.bannerPhotoLibrary)
+        replyButtons.photoLibrary.translatesAutoresizingMaskIntoConstraints = false
+        replyButtons.photoLibrary.centerXAnchor.constraint(equalTo: avatarImageView.avatar.centerXAnchor, constant: 40).isActive = true
+        replyButtons.photoLibrary.centerYAnchor.constraint(equalTo: avatarImageView.avatar.centerYAnchor, constant: 40).isActive = true
+        
+        replyButtons.bannerPhotoLibrary.translatesAutoresizingMaskIntoConstraints = false
+        replyButtons.bannerPhotoLibrary.trailingAnchor.constraint(equalTo: bannerImageView.banner.trailingAnchor, constant: -20).isActive = true
+        replyButtons.bannerPhotoLibrary.bottomAnchor.constraint(equalTo: bannerImageView.banner.bottomAnchor, constant: -20).isActive = true
+       
+        replyButtons.photoLibrary.addTarget(self, action: #selector(self.displayImagePickerButtonTapped(_:)), for: .touchUpInside)
+        
+    }
+    
+    @objc func displayImagePickerButtonTapped(_ sender:UIButton!) {
+        
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = self;
+        myPickerController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        
+        self.present(myPickerController, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        //avatarImageView.avatar.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        bannerImageView.banner.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Handlers

@@ -89,8 +89,8 @@ class ContainerController: UIViewController {
             print("TableView")
             let controller = TableViewController()
             present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
-        case .Inbox:
-            print("Show Inbox")
+//        case .Inbox:
+//            print("Show Inbox")
         case .Notifications:
             print("Show Notifications")
             let controller = ImageCropViewController()
