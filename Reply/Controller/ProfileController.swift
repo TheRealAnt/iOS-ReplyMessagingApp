@@ -14,22 +14,20 @@ class ProfileController: UIViewController {
     
     let avatarImageView = AvatarImageView()
     let bannerImageView = BannerImageView()
+    let replyLabels = ReplyLabels()
     
-    let displayNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.text = "TheRealAnt"
-        return label
-    }()
+    private let avatarWidthHeight = CGFloat(160)
+    private let avatarBorderWidth = CGFloat(4)
+    private let bannerHeight = CGFloat(180)
+    private let bioText = "Some bio text"
     
-    let aboutLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "about me text"
-        return label
-    }()
+//    let displayNameLabel: UILabel = {
+//        let label = UILabel()
+//        label.textColor = .black
+//        label.font = UIFont.systemFont(ofSize: 22)
+//        label.text = "TheRealAnt"
+//        return label
+//    }()
     
     let bannerImageSetting: UIImageView = {
         let iv = UIImageView()
@@ -55,9 +53,9 @@ class ProfileController: UIViewController {
         setupBannerImageView()
         setupAvatarImageView()
         setupDisplayNameLabel()
-        setupAboutLabel()
-        setupBannerSettingImage()
-        setupAvatarSettingImage()
+        setupBioLabel()
+        //setupBannerSettingImage()
+        //setupAvatarSettingImage()
     }
     
     func configureUI() {
@@ -79,7 +77,7 @@ class ProfileController: UIViewController {
         view.addSubview(bannerImageView.banner)
         bannerImageView.banner.translatesAutoresizingMaskIntoConstraints = false
         bannerImageView.banner.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        bannerImageView.banner.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        bannerImageView.banner.heightAnchor.constraint(equalToConstant: bannerHeight).isActive = true
         bannerImageView.banner.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bannerImageView.banner.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
@@ -88,23 +86,28 @@ class ProfileController: UIViewController {
         view.addSubview(avatarImageView.avatar)
         avatarImageView.avatar.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.avatar.centerXAnchor.constraint(equalTo: bannerImageView.banner.centerXAnchor).isActive = true
-        avatarImageView.avatar.topAnchor.constraint(equalTo: bannerImageView.banner.bottomAnchor, constant: -50).isActive = true
-        avatarImageView.avatar.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        avatarImageView.avatar.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        avatarImageView.avatar.topAnchor.constraint(equalTo: bannerImageView.banner.bottomAnchor, constant: -(bannerHeight/2)).isActive = true
+        avatarImageView.avatar.heightAnchor.constraint(equalToConstant: avatarWidthHeight).isActive = true
+        avatarImageView.avatar.widthAnchor.constraint(equalToConstant: avatarWidthHeight).isActive = true
+        
+        avatarImageView.avatar.layer.cornerRadius = avatarWidthHeight/2
+        avatarImageView.avatar.layer.borderWidth = avatarBorderWidth
     }
     
     func setupDisplayNameLabel(){
-        view.addSubview(displayNameLabel)
-        displayNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        displayNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        displayNameLabel.topAnchor.constraint(equalTo: avatarImageView.avatar.bottomAnchor, constant: 20).isActive = true
+        view.addSubview(replyLabels.displayName)
+        replyLabels.displayName.translatesAutoresizingMaskIntoConstraints = false
+        replyLabels.displayName.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        replyLabels.displayName.topAnchor.constraint(equalTo: avatarImageView.avatar.bottomAnchor, constant: 20).isActive = true
     }
     
-    func setupAboutLabel(){
-        view.addSubview(aboutLabel)
-        aboutLabel.translatesAutoresizingMaskIntoConstraints = false
-        aboutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        aboutLabel.topAnchor.constraint(equalTo: displayNameLabel.bottomAnchor, constant: 20).isActive = true
+    func setupBioLabel(){
+        view.addSubview(replyLabels.bio)
+        
+        replyLabels.bio.text = bioText
+        replyLabels.bio.translatesAutoresizingMaskIntoConstraints = false
+        replyLabels.bio.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        replyLabels.bio.topAnchor.constraint(equalTo: replyLabels.displayName.bottomAnchor, constant: 20).isActive = true
     }
     
     func setupBannerSettingImage(){

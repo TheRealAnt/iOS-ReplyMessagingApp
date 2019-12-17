@@ -11,13 +11,12 @@ import UIKit
 class AvatarImageView: UIImageView {
     let avatar: UIImageView = {
         let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "boy")
+        iv.image = #imageLiteral(resourceName: "captainJackSparrow")
         iv.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.layer.borderWidth = 0.2
-        iv.layer.borderColor = UIColor.black.cgColor
-        iv.layer.cornerRadius = 4
+        iv.layer.borderWidth = 0
+        iv.layer.borderColor = UIColor.white.cgColor
         iv.backgroundColor = .none
         return iv
     }()

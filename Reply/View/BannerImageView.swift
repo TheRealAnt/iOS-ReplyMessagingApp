@@ -15,6 +15,8 @@ class BannerImageView: UIImageView {
         iv.image = #imageLiteral(resourceName: "banner")
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
+        iv.layer.cornerRadius = 40
+        iv.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         iv.backgroundColor = .none
         return iv
     }()

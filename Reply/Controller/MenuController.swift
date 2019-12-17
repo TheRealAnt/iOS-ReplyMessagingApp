@@ -17,6 +17,8 @@ class MenuController: UIViewController {
     var tableView: UITableView!
     var delegate: HomeControllerDelegate?
     let avatarImageView = AvatarImageView()
+    private let avatarWidthHeight = CGFloat(60)
+    private let avatarBorderWidth = CGFloat(2)
     
     // MARK: - Init
     
@@ -32,12 +34,13 @@ class MenuController: UIViewController {
     func configureAvatar(){
         view.addSubview(avatarImageView.avatar)
         avatarImageView.avatar.translatesAutoresizingMaskIntoConstraints = false
-        
         avatarImageView.avatar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        avatarImageView.avatar.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        avatarImageView.avatar.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        avatarImageView.avatar.heightAnchor.constraint(equalToConstant: avatarWidthHeight).isActive = true
+        avatarImageView.avatar.widthAnchor.constraint(equalToConstant: avatarWidthHeight).isActive = true
         avatarImageView.avatar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         
+        avatarImageView.avatar.layer.cornerRadius = avatarWidthHeight/2
+        avatarImageView.avatar.layer.borderWidth = avatarBorderWidth
     }
     
     func configureTableView() {
